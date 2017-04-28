@@ -1,0 +1,12 @@
+services:
+    cssoc.featuredPost.listener:
+        class: cssoc\featuredPost\event\main_listener
+        arguments:
+            - '@config'
+            - '@template'
+            - '@user'
+            - '@dbal.conn'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+        tags:
+            - { name: event.listener }

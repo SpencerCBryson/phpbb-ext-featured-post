@@ -1,0 +1,64 @@
+<!-- IF F_ENABLED -->
+	<!-- IF F_GUESTS -->
+		<div class="forumlist_simple">
+			<div class="forabg">
+				<div class="inner">
+					<ul class="topiclist">
+						<li class="header">
+							<dl class="row-item">
+								<dt><div class="list-inner"><i class="fa fa-newspaper-o"></i> &nbsp;{F_WIDGET_TITLE}</div></dt>
+							</dl>
+						</li>
+					</ul>
+									
+					<ul class="topiclist forums">
+						<li class="row">
+							
+							<img src="{F_IMG}" width="{F_IMG_WIDTH}" style="float:left;border-radius:{F_IMG_RADIUS};margin:10px;max-width: 25%;height:auto;" />
+							
+							<h2>{F_POST_TITLE}</h2>
+							<!-- IF not F_HIDE_DATE --><p><i class="icon fa-clock-o"></i>&nbsp;{F_POST_TIME} by {F_AUTHOR}</p><!-- ENDIF -->
+							<p style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;line-height: 16px;max-height: {F_LINE_HEIGHT}px;-webkit-line-clamp: {F_NUM_LINES};">{F_POST_TEXT}</p>
+							<p>
+								<a href="{F_POST_LINK}" class="button specialbutton" title="{F_BTN_TEXT}" style="float:right;float:bottom;margin-right:10px;"><span>{F_BTN_TEXT}</span></a>
+							</p>
+						</li>           
+					</ul>
+				</div>
+			</div>
+		</div>
+	<!-- ENDIF -->
+	
+	<!-- IF not F_GUESTS -->
+		<!-- IF S_USER_LOGGED_IN -->
+			<div class="forumlist_simple">
+				<div class="forabg">
+					<div class="inner">
+						<ul class="topiclist">
+							<li class="header">
+								<dl class="row-item">
+									<dt><div class="list-inner"><i class="fa fa-newspaper-o"></i> &nbsp;{F_WIDGET_TITLE}</div></dt>
+								</dl>
+							</li>
+						</ul>
+										
+						<ul class="topiclist forums">
+							<li class="row">
+								
+								<img src="{F_IMG}" width="{F_IMG_WIDTH}" style="float:left;border-radius:{F_IMG_RADIUS};margin:10px;max-width: 25%;height:auto;" />
+								
+								<h2>{F_POST_TITLE}</h2>
+								<!-- IF not F_HIDE_DATE --><p><i class="icon fa-clock-o"></i>&nbsp;{F_POST_TIME} by {F_AUTHOR}</p><!-- ENDIF -->
+								<p style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;line-height: 16px;max-height: {F_LINE_HEIGHT}px;-webkit-line-clamp: {F_NUM_LINES};">{F_POST_TEXT}</p>
+								<p>
+									<a href="{F_POST_LINK}" class="button specialbutton" title="{F_BTN_TEXT}" style="float:right;float:bottom;margin-right:10px"><span>{F_BTN_TEXT}</span></a>
+								</p>
+							</li>           
+						</ul>
+					</div>
+				</div>
+			</div>
+		<!-- ENDIF -->
+	<!-- ENDIF -->
+	
+<!-- ENDIF -->
