@@ -1,2 +1,2 @@
-# phpbb-ext-featured-post
-Featured Post extension for phpBB
+# Featured Post
+An extension for phpBB.
