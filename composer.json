@@ -2,22 +2,22 @@
     "name": "cssoc/featuredPost",
     "type": "phpbb-extension",
     "description": "Features a specified post and image on the board index.",
-    "homepage": "",
-    "version": "1.0.0-dev",
+    "homepage": "https://github.com/SpencerCBryson/phpbb-ext-featured-post/",
+    "version": "1.0.0",
     "time": "2017-04-27",
     "license": "GPL-2.0",
     "authors": [
 		{
             "name": "Spencer Bryson",
             "email": "spencer.bryson@uoit.net",
-            "homepage": "",
-            "role": ""
+            "homepage": "https://github.com/SpencerCBryson/",
+            "role": "Lead Developer"
         },
         {
             "name": "Lachlan Jonston",
             "email": "lachlan.johnston@uoit.net",
-            "homepage": "",
-            "role": ""
+            "homepage": "https://github.com/lachlanjohnston",
+            "role": "Developer"
         }
         
     ],
