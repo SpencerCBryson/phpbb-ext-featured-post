@@ -3,7 +3,7 @@
  *
  * Featured Post. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2017, Spencer Bryson & Lachlan Jonston
+ * @copyright (c) 2017, Spencer Bryson & Lachlan Johnston
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
@@ -39,11 +39,11 @@ class main_listener implements EventSubscriberInterface
 
 	/** @var string phpEx */
 	protected $php_ext;
-	
+
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
-	
-	
+
+
 
 	/**
 	 * Constructor
@@ -64,38 +64,49 @@ class main_listener implements EventSubscriberInterface
 		$this->php_ext  = $php_ext;
 	}
 
-	
+
 	public function add_featured_post($event)
 	{
 		if(strlen($this->config['f_post_id']) != 0) { // post id field not empty
 			//get post info
 			$f_post_id = $this->config['f_post_id'];
-			
+
 			$sql = 'SELECT *
 					FROM ' . POSTS_TABLE . '
 					WHERE post_id = ' . $f_post_id;
-					
+
 			$result = $this->db->sql_query($sql);
 			$row = $this->db->sql_fetchrow($result);
-			
+			$this->db->sql_freeresult($result);
+
 			$f_forum_id = $row['forum_id'];
 			$f_topic_id = $row['topic_id'];
-			
-			
+
+
+			$row['bbcode_options'] = (($row['enable_bbcode']) ? OPTION_FLAG_BBCODE : 0) +
+				(($row['enable_smilies']) ? OPTION_FLAG_SMILIES : 0) +
+				(($row['enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
+
+			if($this->config['f_bbcode']) {
+				$f_post_text = generate_text_for_display($row['post_text'], $row['bbcode_uid'], $row['bbcode_bitfield'], $row['bbcode_options']);
+			} else {
+				$f_post_text = $row['post_text'];
+			}
+
 			//get username
 			$user_id = $row['poster_id'];
-			$sql = 'SELECT * 
+			$sql = 'SELECT *
 					FROM ' . USERS_TABLE . '
 					WHERE user_id = ' . $user_id;
-			
-		
+
+
 			$result = $this->db->sql_query($sql);
 			$u_row = $this->db->sql_fetchrow($result);
-			
+
 			$this->template->assign_vars(array(
 				'F_WIDGET_TITLE'	=> $this->config['f_widget_title'],
 				'F_POST_TITLE'		=> $row['post_subject'],
-				'F_POST_TEXT'		=> $row['post_text'],
+				'F_POST_TEXT'		=> $f_post_text,
 				'F_POST_LINK'		=> append_sid("{$this->root_path}viewtopic.$this->php_ext", "f=$f_forum_id&amp;t=$f_topic_id&amp;p=$f_post_id#p$f_post_id"),
 				'F_IMG'				=> $this->config['f_img'],
 				'F_IMG_WIDTH'		=> $this->config['f_img_width'],
@@ -109,15 +120,15 @@ class main_listener implements EventSubscriberInterface
 				'F_HIDE_DATE'		=> $this->config['f_hide_date'],
 				'F_BTN_TEXT'		=> $this->config['f_btn_text']
 			));
-			
-			
+
+
 		// post id is empty
-		} else { 
+		} else {
 			$this->template->assign_vars(array(
 				'F_ENABLED'			=> 0
 			));
 		}
-		
-		
+
+
 	}
 }

@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Features a specified post and image on the board index.",
     "homepage": "https://github.com/SpencerCBryson/phpbb-ext-featured-post/",
-    "version": "1.0.0",
-    "time": "2017-04-27",
+    "version": "1.1.0",
+    "time": "2017-05-01",
     "license": "GPL-2.0",
     "authors": [
 		{
@@ -14,12 +14,12 @@
             "role": "Lead Developer"
         },
         {
-            "name": "Lachlan Jonston",
+            "name": "Lachlan Johnston",
             "email": "lachlan.johnston@uoit.net",
             "homepage": "https://github.com/lachlanjohnston",
             "role": "Developer"
         }
-        
+
     ],
     "require": {
         "php": ">=5.3.3"

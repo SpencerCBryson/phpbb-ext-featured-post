@@ -3,7 +3,7 @@
  *
  * Featured Post. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2017, Spencer Bryson & Lachlan Jonston
+ * @copyright (c) 2017, Spencer Bryson & Lachlan Johnston
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
@@ -23,7 +23,7 @@ class main_module
 	{
 		global $config, $request, $template, $user;
 
-		$user->add_lang_ext('cssoc/featuredPost', 'common');
+		$user->add_lang_ext('cssoc/featuredPost', 'info_acp_featured_post');
 		$this->tpl_name = 'acp_featured_body';
 		$this->page_title = $user->lang('ACP_FEATURED_TITLE');
 		add_form_key('cssoc/featuredPost');
@@ -45,11 +45,11 @@ class main_module
 			$config->set('f_guests', $request->variable('f_guests', 1));
 			$config->set('f_enabled', $request->variable('f_enabled', 1));
 			$config->set('f_hide_date', $request->variable('f_hide_date', 0));
-			
-			
+			$config->set('f_bbcode', $request->variable('f_bbcode', 1));
+
 			trigger_error($user->lang('ACP_FEATURED_SETTING_SAVED') . adm_back_link($this->u_action));
 		}
-		
+
 		$f_widget_title = $config['f_widget_title'];
 		$f_post_id = $config['f_post_id'];
 		$f_img = $config['f_img'];
@@ -59,6 +59,7 @@ class main_module
 		$f_guests = $config['f_guests'];
 		$f_enabled = $config['f_enabled'];
 		$f_hide_date = $config['f_hide_date'];
+		$f_bbcode = $config['f_bbcode'];
 		$f_btn_text = $config['f_btn_text'];
 
 		$template->assign_vars(array(
@@ -72,6 +73,7 @@ class main_module
 			'F_GUESTS'				=> $f_guests,
 			'F_ENABLED'				=> $f_enabled,
 			'F_HIDE_DATE'			=> $f_hide_date,
+			'F_BBCODE'				=> $f_bbcode,
 			'F_BTN_TEXT'			=> $f_btn_text
 		));
 	}

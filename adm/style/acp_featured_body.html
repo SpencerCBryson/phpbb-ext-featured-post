@@ -11,42 +11,42 @@
 				<input type="radio" class="radio" name="f_enabled" value="0" <!-- IF not F_ENABLED -->checked="checked"<!-- ENDIF --> /> No
 			</dd>
 		</dl>
-		
+
 		<dl>
 			<dt><label for="f_widget_title">Widget Title</label><br /><span>Set title for featured post widget on index</span></dt>
 			<dd><input type="text" id="f_widget_title" name="f_widget_title" rows="5" cols="50" value="{F_WIDGET_TITLE}"></dd>
 		</dl>
-		
+
 		<dl>
 			<dt><label for="f_post_id">Post ID</label><br /><span>ID of post to be featured</span></dt>
 			<dd><input type="text" id="f_post_id" name="f_post_id" rows="5" cols="50" value="{F_POST_ID}"></dd>
 		</dl>
-		
+
 		<dl>
 			<dt><label for="f_img">Image URL</label><br /><span>URL of image to be displayed</span></dt>
 			<dd><input type="text" id="f_img" name="f_img" rows="5" cols="50" value="{F_IMG}"></dd>
 		</dl>
-		
+
 		<dl>
 			<dt><label for="f_img_width">Image Width</label><br /><span>Width of image (default: 256px)<br/>Note: Extension will scale the width down for smaller displays. Height is automatically scaled.</span></dt>
 			<dd><input type="text" id="f_img_width" name="f_img_width" rows="5" cols="50" value="{F_IMG_WIDTH}"></dd>
 		</dl>
-		
+
 		<dl>
 			<dt><label for="f_img_radius">Image Radius</label><br /><span>Border-radius of image (default: 50%)</span></dt>
 			<dd><input type="text" id="f_img_radius" name="f_img_radius" rows="5" cols="50" value="{F_IMG_RADIUS}"></dd>
 		</dl>
-		
+
 		<dl>
 			<dt><label for="f_num_lines">Number of lines</label><br /><span>Number of lines to display (default: 4)</span></dt>
 			<dd><input type="text" id="f_num_lines" name="f_num_lines" rows="5" cols="50" value="{F_NUM_LINES}"></dd>
 		</dl>
-		
+
 		<dl>
 			<dt><label for="f_btn_text">Button text</label><br /><span>Text for post button</span></dt>
 			<dd><input type="text" id="f_btn_text" name="f_btn_text" rows="5" cols="50" value="{F_BTN_TEXT}"></dd>
 		</dl>
-		
+
 		<dl>
 			<dt><label for="f_guests">Show to guests</label><br /><span>Toggle widget visibility for guests</span></dt>
 			<dd>
@@ -54,12 +54,20 @@
 				<input type="radio" class="radio" name="f_guests" value="0" <!-- IF not F_GUESTS -->checked="checked"<!-- ENDIF --> /> No
 			</dd>
 		</dl>
-		
+
 		<dl>
 			<dt><label for="f_hide_date">Hide date & author</label><br /><span>Toggle visibility of the post's date and author</span></dt>
 			<dd>
 				<input type="radio" class="radio" name="f_hide_date" value="1" <!-- IF F_HIDE_DATE -->checked="checked"<!-- ENDIF -->/> Yes &nbsp;
 				<input type="radio" class="radio" name="f_hide_date" value="0" <!-- IF not F_HIDE_DATE -->checked="checked"<!-- ENDIF --> /> No
+			</dd>
+		</dl>
+
+		<dl>
+			<dt><label for="f_bbcode">Enable Parsing</label><br /><span>Toggle parsing of BB Code, Smilies and Emojis.<br/><strong>Note:</strong> be careful what bbcode is in the posts you feature! </span></dt>
+			<dd>
+				<input type="radio" class="radio" name="f_bbcode" value="1" <!-- IF F_BBCODE -->checked="checked"<!-- ENDIF -->/> Yes &nbsp;
+				<input type="radio" class="radio" name="f_bbcode" value="0" <!-- IF not F_BBCODE -->checked="checked"<!-- ENDIF --> /> No
 			</dd>
 		</dl>
 

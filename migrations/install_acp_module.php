@@ -3,7 +3,7 @@
  *
  * Featured Post. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2017, Spencer Bryson & Lachlan Jonston
+ * @copyright (c) 2017, Spencer Bryson & Lachlan Johnston
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
@@ -35,6 +35,7 @@ class install_acp_module extends \phpbb\db\migration\migration
 			array('config.add', array('f_guests', '1')),
 			array('config.add', array('f_enabled', '1')),
 			array('config.add', array('f_hide_date', '0')),
+			array('config.add', array('f_bbcode', '1')),
 
 			array('module.add', array(
 				'acp',

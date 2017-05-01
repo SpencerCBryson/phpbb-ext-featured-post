@@ -3,7 +3,7 @@
  *
  * Featured Post. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2017, Spencer Bryson & Lachlan Jonston
+ * @copyright (c) 2017, Spencer Bryson & Lachlan Johnston
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
