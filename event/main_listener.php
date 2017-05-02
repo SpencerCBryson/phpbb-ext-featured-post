@@ -27,7 +27,6 @@ class main_listener implements EventSubscriberInterface
 		);
 	}
 
-
 	/* @var \phpbb\config\config */
 	protected $config;
 
@@ -42,8 +41,6 @@ class main_listener implements EventSubscriberInterface
 
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
-
-
 
 	/**
 	 * Constructor
@@ -64,9 +61,7 @@ class main_listener implements EventSubscriberInterface
 		$this->php_ext  = $php_ext;
 	}
 
-
-	public function add_featured_post($event)
-	{
+	public function add_featured_post($event) {
 		if(strlen($this->config['f_post_id']) != 0) { // post id field not empty
 			//get post info
 			$f_post_id = $this->config['f_post_id'];
@@ -81,7 +76,6 @@ class main_listener implements EventSubscriberInterface
 
 			$f_forum_id = $row['forum_id'];
 			$f_topic_id = $row['topic_id'];
-
 
 			$row['bbcode_options'] = (($row['enable_bbcode']) ? OPTION_FLAG_BBCODE : 0) +
 				(($row['enable_smilies']) ? OPTION_FLAG_SMILIES : 0) +
@@ -99,9 +93,9 @@ class main_listener implements EventSubscriberInterface
 					FROM ' . USERS_TABLE . '
 					WHERE user_id = ' . $user_id;
 
-
 			$result = $this->db->sql_query($sql);
 			$u_row = $this->db->sql_fetchrow($result);
+			$this->db->sql_freeresult($result);
 
 			$this->template->assign_vars(array(
 				'F_WIDGET_TITLE'	=> $this->config['f_widget_title'],
@@ -121,14 +115,11 @@ class main_listener implements EventSubscriberInterface
 				'F_BTN_TEXT'		=> $this->config['f_btn_text']
 			));
 
-
 		// post id is empty
 		} else {
 			$this->template->assign_vars(array(
 				'F_ENABLED'			=> 0
 			));
 		}
-
-
 	}
 }
