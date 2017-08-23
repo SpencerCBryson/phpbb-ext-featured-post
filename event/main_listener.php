@@ -73,50 +73,59 @@ class main_listener implements EventSubscriberInterface
 			$result = $this->db->sql_query($sql);
 			$row = $this->db->sql_fetchrow($result);
 			$this->db->sql_freeresult($result);
+			
+			//verify post exists
+			if(!is_null($row['forum_id']))
+			{
+				$f_forum_id = $row['forum_id'];
+				$f_topic_id = $row['topic_id'];
 
-			$f_forum_id = $row['forum_id'];
-			$f_topic_id = $row['topic_id'];
+				$row['bbcode_options'] = (($row['enable_bbcode']) ? OPTION_FLAG_BBCODE : 0) +
+					(($row['enable_smilies']) ? OPTION_FLAG_SMILIES : 0) +
+					(($row['enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
 
-			$row['bbcode_options'] = (($row['enable_bbcode']) ? OPTION_FLAG_BBCODE : 0) +
-				(($row['enable_smilies']) ? OPTION_FLAG_SMILIES : 0) +
-				(($row['enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
+				if($this->config['f_bbcode']) {
+					$f_post_text = generate_text_for_display($row['post_text'], $row['bbcode_uid'], $row['bbcode_bitfield'], $row['bbcode_options']);
+				} else {
+					$f_post_text = $row['post_text'];
+				}
 
-			if($this->config['f_bbcode']) {
-				$f_post_text = generate_text_for_display($row['post_text'], $row['bbcode_uid'], $row['bbcode_bitfield'], $row['bbcode_options']);
+				//get username
+				$user_id = $row['poster_id'];
+				$sql = 'SELECT *
+						FROM ' . USERS_TABLE . '
+						WHERE user_id = ' . $user_id;
+
+				$result = $this->db->sql_query($sql);
+				$u_row = $this->db->sql_fetchrow($result);
+				$this->db->sql_freeresult($result);
+
+				$this->template->assign_vars(array(
+					'F_WIDGET_TITLE'	=> $this->config['f_widget_title'],
+					'F_POST_TITLE'		=> $row['post_subject'],
+					'F_POST_TEXT'		=> $f_post_text,
+					'F_POST_LINK'		=> append_sid("{$this->root_path}viewtopic.$this->php_ext", "f=$f_forum_id&amp;t=$f_topic_id&amp;p=$f_post_id#p$f_post_id"),
+					'F_IMG'				=> $this->config['f_img'],
+					'F_IMG_WIDTH'		=> $this->config['f_img_width'],
+					'F_IMG_RADIUS'		=> $this->config['f_img_radius'],
+					'F_NUM_LINES'		=> $this->config['f_num_lines'],
+					'F_LINE_HEIGHT' 	=> 16 * $this->config['f_num_lines'],
+					'F_POST_TIME'		=> $this->user->format_date($row['post_time']),
+					'F_AUTHOR'			=> get_username_string('full', $user_id, $u_row['username'], $u_row['user_colour']),
+					'F_GUESTS'			=> $this->config['f_guests'],
+					'F_ENABLED'			=> $this->config['f_enabled'],
+					'F_HIDE_DATE'		=> $this->config['f_hide_date'],
+					'F_BTN_TEXT'		=> $this->config['f_btn_text']
+				));
+				
 			} else {
-				$f_post_text = $row['post_text'];
+				// post does not exist
+				$this->template->assign_vars(array(
+					'F_ENABLED'			=> 0
+				));
 			}
-
-			//get username
-			$user_id = $row['poster_id'];
-			$sql = 'SELECT *
-					FROM ' . USERS_TABLE . '
-					WHERE user_id = ' . $user_id;
-
-			$result = $this->db->sql_query($sql);
-			$u_row = $this->db->sql_fetchrow($result);
-			$this->db->sql_freeresult($result);
-
-			$this->template->assign_vars(array(
-				'F_WIDGET_TITLE'	=> $this->config['f_widget_title'],
-				'F_POST_TITLE'		=> $row['post_subject'],
-				'F_POST_TEXT'		=> $f_post_text,
-				'F_POST_LINK'		=> append_sid("{$this->root_path}viewtopic.$this->php_ext", "f=$f_forum_id&amp;t=$f_topic_id&amp;p=$f_post_id#p$f_post_id"),
-				'F_IMG'				=> $this->config['f_img'],
-				'F_IMG_WIDTH'		=> $this->config['f_img_width'],
-				'F_IMG_RADIUS'		=> $this->config['f_img_radius'],
-				'F_NUM_LINES'		=> $this->config['f_num_lines'],
-				'F_LINE_HEIGHT' 	=> 16 * $this->config['f_num_lines'],
-				'F_POST_TIME'		=> $this->user->format_date($row['post_time']),
-				'F_AUTHOR'			=> get_username_string('full', $user_id, $u_row['username'], $u_row['user_colour']),
-				'F_GUESTS'			=> $this->config['f_guests'],
-				'F_ENABLED'			=> $this->config['f_enabled'],
-				'F_HIDE_DATE'		=> $this->config['f_hide_date'],
-				'F_BTN_TEXT'		=> $this->config['f_btn_text']
-			));
-
-		// post id is empty
 		} else {
+			// post id is empty
 			$this->template->assign_vars(array(
 				'F_ENABLED'			=> 0
 			));
